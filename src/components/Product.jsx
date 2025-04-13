@@ -2,10 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../redux/slices/CartSlice";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Product = ({ item }) => {
   const { cart } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const isInCart = cart.some((p) => p.id === item.id);
 
@@ -19,8 +21,12 @@ const Product = ({ item }) => {
     toast.error("Item removed from cart");
   };
 
+  const productHandler = () => {
+    navigate(`/products/${item.id}`);
+  }
+
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-4 flex flex-col justify-between">
+    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-4 flex flex-col justify-between" onClick={productHandler}>
       <div className="w-full h-48 flex justify-center items-center overflow-hidden">
         <img
           src={item.image}
