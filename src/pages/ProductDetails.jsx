@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { add, remove } from "../redux/slices/CartSlice";
 import Spinner from "../components/Spinner";
+import toast from "react-hot-toast";
 
 const API_URL = "https://fakestoreapi.com/products";
 
@@ -29,6 +30,16 @@ const ProductDetails = () => {
     fetchProduct();
   }, [id]);
 
+  const addHandler = () => {
+    dispatch(add(product));
+    toast.success("Item added to cart");
+  }
+
+  const removeHandler = () => {
+    dispatch(remove(product.id));
+    toast.error("Item removed from cart");
+  }
+
   const isInCart = cart.some((p) => p.id === product?.id);
 
   if (loading) return <div className="flex justify-center items-center h-screen">{<Spinner />}</div>;
@@ -48,14 +59,14 @@ const ProductDetails = () => {
 
         {isInCart ? (
           <button 
-            onClick={() => dispatch(remove(product.id))} 
+            onClick={removeHandler} 
             className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
           >
             Remove from Cart
           </button>
         ) : (
           <button 
-            onClick={() => dispatch(add(product))} 
+            onClick={addHandler} 
             className="mt-4 px-4 py-2 bg-black text-white rounded hover:bg-gray-800"
           >
             Add to Cart
