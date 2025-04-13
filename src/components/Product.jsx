@@ -26,8 +26,8 @@ const Product = ({ item }) => {
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-4 flex flex-col justify-between" onClick={productHandler}>
-      <div className="w-full h-48 flex justify-center items-center overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-4 flex flex-col justify-between">
+      <div className="w-full h-48 flex justify-center items-center overflow-hidden" onClick={productHandler}>
         <img
           src={item.image}
           alt={item.title}
